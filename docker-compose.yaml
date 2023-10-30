@@ -1,0 +1,11 @@
+services:
+  dockerindocker:
+    build:
+      context: .
+
+    environment:
+      - TELEGRAM_API_TOKEN=
+      - ENABLED_USERS=
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
