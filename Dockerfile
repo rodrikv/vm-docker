@@ -14,4 +14,4 @@ WORKDIR /shell-bot
 RUN python3 -m pip install -r requirements.txt
 
 COPY . .
-CMD ["sh", "entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
