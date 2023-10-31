@@ -1,6 +1,6 @@
 services:
   dockerindocker:
-    image: ghcr.io/rodrikv/vm-docker:latest
+    image: ghcr.io/rodrikv/vm-docker:master
     deploy:
       resources:
         limits:

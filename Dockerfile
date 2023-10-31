@@ -17,5 +17,9 @@ WORKDIR /shell-bot
 
 RUN python3 -m pip install -r requirements.txt
 
-ENTRYPOINT ["sh", "-c", "rc-status;echo "$ssh_pub_key" >> ~/.ssh/authorized_keys  ;rc-service sshd start"]
+RUN echo "$ssh_pub_key" >> ~/.ssh/authorized_keys 
+
+RUN echo 'rc-service sshd start' > /hook/pre-start
+
 CMD ["python3", "bot.py"]
+
