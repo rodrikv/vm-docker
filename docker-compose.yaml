@@ -12,8 +12,8 @@ services:
     environment:
       - TELEGRAM_API_TOKEN=
       - ENABLED_USERS=
-      - ssh_pub_keys=
-      - ssh_port
+      - ssh_pub_key=
+      - ssh_port=
     ports:
       - 65000-65500:65000-65500
     volumes:

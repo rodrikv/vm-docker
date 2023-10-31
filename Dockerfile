@@ -3,9 +3,7 @@ FROM docker:latest
 RUN mkdir -p ~/.ssh \
     && chmod 0700 ~/.ssh \
     && passwd -u root \
-    for key in ${ssh_pub_keys//,/ }; do \ 
-      echo "$key" >> ~/.ssh/authorized_keys; \ 
-    done\
+    && echo "$ssh_pub_key" >> ~/.ssh/authorized_keys \
     && apk add openrc openssh \
     && ssh-keygen -A \
     && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
