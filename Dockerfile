@@ -1,4 +1,4 @@
-FROM docker:latest
+FROM docker:dind
 
 RUN mkdir -p ~/.ssh \
     && chmod 0700 ~/.ssh \
