@@ -9,6 +9,7 @@ services:
         reservations:
           cpus: '0.25'
           memory: 256M
+    privileged: true
     env_file:
         - .env
     ports:
