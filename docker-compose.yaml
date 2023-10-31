@@ -9,11 +9,15 @@ services:
         reservations:
           cpus: '0.25'
           memory: 256M
+    command: sh -c "echo "$ssh_pub_key" >> ~/.ssh/authorized_keys
+                    &&  rc-service sshd start 
+                    && python3 bot.py"
     environment:
       - TELEGRAM_API_TOKEN=
       - ENABLED_USERS=
       - ssh_pub_key=
       - ssh_port=
+    
     ports:
       - 65000-65500:65000-65500
     volumes:
