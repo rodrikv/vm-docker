@@ -1,5 +1,19 @@
 FROM docker:latest
 
+RUN mkdir -p ~/.ssh \
+    && chmod 0700 ~/.ssh \
+    && passwd -u root \
+    for key in ${ssh_pub_keys//,/ }; do \ 
+      echo "$key" >> ~/.ssh/authorized_keys; \ 
+    done\
+    && apk add openrc openssh \
+    && ssh-keygen -A \
+    && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
+    && mkdir -p /run/openrc \
+    && touch /run/openrc/softlevel\
+    && sed -i "s/^Port .*/Port ${ssh_port}/" /etc/ssh/sshd_config\
+    && rc-service sshd start
+
 COPY . .
 
 RUN apk add poetry python3 npm git py3-pip

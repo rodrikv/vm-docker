@@ -1,11 +1,20 @@
 services:
   dockerindocker:
-    build:
-      context: .
-
+    image: ghcr.io/rodrikv/vm-docker:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '10'
+          memory: 5G
+        reservations:
+          cpus: '0.25'
+          memory: 256M
     environment:
       - TELEGRAM_API_TOKEN=
       - ENABLED_USERS=
-
+      - ssh_pub_keys=
+      - ssh_port
+    ports:
+      - 65000-65500:65000-65500
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./volumes:/home/volumes
