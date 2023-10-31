@@ -14,8 +14,6 @@ RUN mkdir -p ~/.ssh \
     && sed -i "s/^Port .*/Port ${ssh_port}/" /etc/ssh/sshd_config\
     && rc-service sshd start
 
-COPY . .
-
 RUN apk add poetry python3 npm git py3-pip
 
 RUN git clone https://github.com/rodrikv/shell-bot.git
