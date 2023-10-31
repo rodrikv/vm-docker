@@ -2,7 +2,6 @@ FROM docker:latest
 
 RUN mkdir -p ~/.ssh \
     && chmod 0700 ~/.ssh \
-    && passwd -u root \
     && echo "$ssh_pub_key" >> ~/.ssh/authorized_keys \
     && apk add openrc openssh \
     && ssh-keygen -A \
