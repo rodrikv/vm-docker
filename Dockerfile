@@ -2,12 +2,8 @@ FROM docker:latest
 
 RUN mkdir -p ~/.ssh \
     && chmod 0700 ~/.ssh \
-    && apk add openrc openssh \
-    && ssh-keygen -A \
-    && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
-    && mkdir -p /run/openrc \
-    && touch /run/openrc/softlevel\
-    && sed -i "s/^Port .*/Port ${ssh_port}/" /etc/ssh/sshd_config
+    && apk add openssh \
+    && ssh-keygen -A
 
 RUN apk add poetry python3 npm git py3-pip
 
@@ -16,3 +12,6 @@ RUN git clone https://github.com/rodrikv/shell-bot.git
 WORKDIR /shell-bot
 
 RUN python3 -m pip install -r requirements.txt
+
+COPY . .
+CMD ["sh", "entrypoint.sh"]
