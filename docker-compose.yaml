@@ -10,6 +10,7 @@ services:
           cpus: '0.25'
           memory: 256M
     privileged: true
+    command: ["python3", "bot.py"]
     env_file:
         - .env
     ports:

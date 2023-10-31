@@ -21,10 +21,11 @@ if [ "$1" = 'dockerd' ]; then
 	find /run /var/run -iname 'docker*.pid' -delete
 fi
 
-exec "$@"
-
-
 echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config
 echo 'Port '$ssh_port >> /etc/ssh/sshd_config
 echo $ssh_pub_key >> ~/.ssh/authorized_keys
 /usr/sbin/sshd -D &
+
+exec "$@"
+
+
