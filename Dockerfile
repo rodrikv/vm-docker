@@ -14,4 +14,7 @@ WORKDIR /shell-bot
 RUN python3 -m pip install -r requirements.txt
 
 COPY . .
-ENTRYPOINT ["entrypoint.sh"]
+
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT ["/shell-bot/entrypoint.sh"]
