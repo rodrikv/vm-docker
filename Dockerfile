@@ -2,7 +2,6 @@ FROM docker:latest
 
 RUN mkdir -p ~/.ssh \
     && chmod 0700 ~/.ssh \
-    && echo "$ssh_pub_key" >> ~/.ssh/authorized_keys \
     && apk add openrc openssh \
     && ssh-keygen -A \
     && echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config \
@@ -18,5 +17,5 @@ WORKDIR /shell-bot
 
 RUN python3 -m pip install -r requirements.txt
 
-ENTRYPOINT ["sh", "-c", "rc-status; rc-service sshd start"]
+ENTRYPOINT ["sh", "-c", "rc-status;echo "$ssh_pub_key" >> ~/.ssh/authorized_keys  ;rc-service sshd start"]
 CMD ["python3", "bot.py"]
