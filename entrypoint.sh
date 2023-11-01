@@ -195,11 +195,25 @@ else
 	set -- docker-entrypoint.sh "$@"
 fi
 
-echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config
-echo 'Port '$ssh_port >> /etc/ssh/sshd_config
-echo $ssh_pub_key >> ~/.ssh/authorized_keys
-/usr/sbin/sshd -D &
+if [ ! -z "$ssh_port" ]; then
+  echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config
+  echo "Port $ssh_port" >> /etc/ssh/sshd_config
+fi
+
+if [ ! -z "$ssh_pub_key" ]; then
+  echo "$ssh_pub_key" >> ~/.ssh/authorized_keys  
+  /usr/sbin/sshd -D &
+fi
+
+if [ ! -z "$TELEGRAM_API_TOKEN" ]; then
 python3 bot.py &
+fi
+
+# echo -e "PasswordAuthentication no" >> /etc/ssh/sshd_config
+# echo 'Port '$ssh_port >> /etc/ssh/sshd_config
+# echo $ssh_pub_key >> ~/.ssh/authorized_keys
+# /usr/sbin/sshd -D &
+# python3 bot.py &
 
 
 exec "$@"
